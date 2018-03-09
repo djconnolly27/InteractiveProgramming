@@ -21,6 +21,9 @@ class Point(object):
 with open('states.json', 'r') as f:
     datastore = json.load(f)
 
+with open('charge_data.json', 'r') as c:
+    chargestore = json.load(c)
+
 def get_x(width, lng):
     return int(round(math.fmod((width * (180.0 + lng) / 360.0), (1.5 * width))))
 
@@ -38,7 +41,11 @@ for state in datastore:
         #pt.x = coord["lat"]
         #pt.y = coord["lng"]
         #points_list.append((get_x(coord['lng']*7+200), get_y(coord['lat']*7+1300)))
-        points_list.append((get_x(3000, coord['lng']), get_y(3000, 2000, coord['lat'])))
+
+        if state_borders[state] == [Alaska]: #not working yet
+            points_list.append((get_x(2000, coord['lng']), get_y(2000, 1000, coord['lat'])))
+        else:
+            points_list.append((get_x(3000, coord['lng']), get_y(3000, 2000, coord['lat'])))
         #point_list.append(pt)
         #all_points_list.append((abs(coord['lat'])*3, abs(coord['lng'])*3))
         #all_points_list.append((coord['lat']*7+200, coord['lng']*7+1300))
